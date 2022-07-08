@@ -1,3 +1,4 @@
+# Replace the disk names, hostname, mac address, IP configuration and timezone
 variant: fcos
 version: 1.4.0
 passwd:
@@ -15,12 +16,12 @@ storage:
     - device: /dev/nvme0n1
       partitions:
         - label: root-1
-          size_mib: 8192
+          size_mib: 16384
         - label: var-1
     - device: /dev/nvme1n1
       partitions:
         - label: root-2
-          size_mib: 8192
+          size_mib: 16384
         - label: var-2
   raid:
     - name: md-var
@@ -34,11 +35,15 @@ storage:
       format: ext4
       wipe_filesystem: true
       with_mount_unit: true
+  links:
+      - path: /etc/localtime
+        target: ../usr/share/zoneinfo/Europe/Berlin
   files:
       - path: /etc/hostname
         mode: 0644
         contents:
-          inline: srv-01
+          inline: |
+            srv-01
       - path: /etc/NetworkManager/system-connections/eno0.nmconnection
         mode: 0600
         contents:
@@ -56,11 +61,14 @@ storage:
       - path: /etc/profile.d/systemd-pager.sh
         mode: 0644
         contents:
-          inline: export SYSTEMD_PAGER=cat
-      - path: /etc/sysctl.d/20-silence-audit.conf
+          inline: |
+            export SYSTEMD_PAGER=cat
+      - path: /etc/sysctl.d/91-overcommit-memory.conf
         mode: 0644
         contents:
-          inline: kernel.printk=4
-  links:
-    - path: /etc/localtime
-      target: ../usr/share/zoneinfo/Europe/Berlin
+          inline: |
+            vm.overcommit_memory=1
+      - path: /etc/sysctl.d/90-sysrq.conf
+        contents:
+          inline: |
+            kernel.sysrq = 0

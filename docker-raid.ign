@@ -33,7 +33,7 @@
           },
           {
             "label": "root-1",
-            "sizeMiB": 8192
+            "sizeMiB": 16384
           },
           {
             "label": "var-1"
@@ -60,7 +60,7 @@
           },
           {
             "label": "root-2",
-            "sizeMiB": 8192
+            "sizeMiB": 16384
           },
           {
             "label": "var-2"
@@ -74,7 +74,7 @@
         "path": "/etc/hostname",
         "contents": {
           "compression": "",
-          "source": "data:,srv-01"
+          "source": "data:,srv-01%0A"
         },
         "mode": 420
       },
@@ -90,17 +90,24 @@
         "path": "/etc/profile.d/systemd-pager.sh",
         "contents": {
           "compression": "",
-          "source": "data:,export%20SYSTEMD_PAGER%3Dcat"
+          "source": "data:,export%20SYSTEMD_PAGER%3Dcat%0A"
         },
         "mode": 420
       },
       {
-        "path": "/etc/sysctl.d/20-silence-audit.conf",
+        "path": "/etc/sysctl.d/91-overcommit-memory.conf",
         "contents": {
           "compression": "",
-          "source": "data:,kernel.printk%3D4"
+          "source": "data:,vm.overcommit_memory%3D1%0A"
         },
         "mode": 420
+      },
+      {
+        "path": "/etc/sysctl.d/90-sysrq.conf",
+        "contents": {
+          "compression": "",
+          "source": "data:,kernel.sysrq%20%3D%200"
+        }
       }
     ],
     "filesystems": [
