@@ -39,6 +39,28 @@ storage:
         mode: 0644
         contents:
           inline: srv-01
+      - path: /etc/NetworkManager/system-connections/eno0.nmconnection
+        mode: 0600
+        contents:
+          inline: |
+            [connection]
+            id=eno0
+            type=ethernet
+            interface-name=eno0
+            [ipv4]
+            address1=192.168.0.200/24,192.168.0.1
+            dns=1.1.1.1;1.0.0.1
+            dns-search=
+            may-fail=false
+            method=manual
+      - path: /etc/profile.d/systemd-pager.sh
+        mode: 0644
+        contents:
+          inline: export SYSTEMD_PAGER=cat
+      - path: /etc/sysctl.d/20-silence-audit.conf
+        mode: 0644
+        contents:
+          inline: kernel.printk=4
   links:
     - path: /etc/localtime
       target: ../usr/share/zoneinfo/Europe/Berlin

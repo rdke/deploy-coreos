@@ -77,6 +77,30 @@
           "source": "data:,srv-01"
         },
         "mode": 420
+      },
+      {
+        "path": "/etc/NetworkManager/system-connections/eno0.nmconnection",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/0TKUarCMBBG4fdZy21uUoooMispfRiSvzTQTEoyCt29oIict48zx6qKaLnqQjkxtHqy8wDDNjSFUVZDWyViUCn4HHM+ntNCklJD74HDbXThcnXejd7/j9PfDwIl7Rzcu3tw/mtDh7S4MRU5h1XyzqvsHVRgW01cRB+y0ysAAP//xsomZqEAAAA="
+        },
+        "mode": 384
+      },
+      {
+        "path": "/etc/profile.d/systemd-pager.sh",
+        "contents": {
+          "compression": "",
+          "source": "data:,export%20SYSTEMD_PAGER%3Dcat"
+        },
+        "mode": 420
+      },
+      {
+        "path": "/etc/sysctl.d/20-silence-audit.conf",
+        "contents": {
+          "compression": "",
+          "source": "data:,kernel.printk%3D4"
+        },
+        "mode": 420
       }
     ],
     "filesystems": [
