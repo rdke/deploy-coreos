@@ -1,0 +1,44 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIByzeH6Ysft1tgX9/trIq4gWOyHTSDI9m+SstCuGWlAq
+boot_device:
+  mirror:
+    devices:
+      - /dev/nvme0n1
+      - /dev/nvme1n1
+storage:
+  disks:
+    - device: /dev/nvme0n1
+      partitions:
+        - label: root-1
+          size_mib: 8192
+        - label: var-1
+    - device: /dev/nvme1n1
+      partitions:
+        - label: root-2
+          size_mib: 8192
+        - label: var-2
+  raid:
+    - name: md-var
+      level: raid1
+      devices:
+        - /dev/disk/by-partlabel/var-1
+        - /dev/disk/by-partlabel/var-2
+  filesystems:
+    - device: /dev/md/md-var
+      path: /var
+      format: ext4
+      wipe_filesystem: true
+      with_mount_unit: true
+  files:
+      - path: /etc/hostname
+        mode: 0644
+        contents:
+          inline: srv-01
+  links:
+    - path: /etc/localtime
+      target: ../usr/share/zoneinfo/Europe/Berlin
